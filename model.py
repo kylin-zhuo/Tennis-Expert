@@ -3,7 +3,6 @@ from sklearn.svm import SVC
 import pandas as pd
 
 def model1(df):
-
 	winners = pd.DataFrame(df[['w_ace', 'w_df', 'w_svpt', 'w_1stIn', 'w_1stWon', 
 		'w_2ndWon','w_SvGms', 'w_bpSaved', 'w_bpFaced']])
 	losers = pd.DataFrame(df[['l_ace', 'l_df', 'l_svpt', 'l_1stIn', 'l_1stWon', 
