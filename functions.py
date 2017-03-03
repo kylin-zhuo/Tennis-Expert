@@ -54,6 +54,8 @@ def dealwithna(df, t=43, v=0):
 def preprocessing(df):
 	# df.rename(columns={'l_bpFaced\t':'l_bpFaced'}, inplace=True)
 	# df.l_bpFaced = pd.to_numeric(df.l_bpFaced, errors='coerce')
+	df.tourney_date = pd.to_datetime(df.tourney_date,format='%Y%m%d')
+
 	transform(df)
 	dealwithna(df)
 
