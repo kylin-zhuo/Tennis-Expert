@@ -26,6 +26,19 @@ players = ['Roger Federer',
 'Marat Safin',
 'Lleyton Hewitt']
 
+def all1stWon(_1stIn, _1stWon, _2ndWon, doublefault):
+	E1 = _1stIn * _1stWon + (1 - _1stIn - doublefault) * _2ndWon
+	E2 = _1stIn * _1stWon + (1 - _1stIn) * _1stIn * _1stWon
+	return E1, E2
+
+import random
+fed = f.extractPlayerData(df, 'Roger Federer')
+d = fed.iloc[random.randint(0,len(fed))]
+print d
+print all1stWon(d['1stIn'], d['1stWon'], d['2ndWon'], d['df'])
+
+exit()
+
 
 # res = pd.to_datetime('20150524',format='%Y%m%d') - pd.to_datetime('20150521',format='%Y%m%d')
 # print res.days

@@ -1,6 +1,7 @@
 import pandas as pd 
 import numpy as np
 import re
+from tennis import *
 
 """
 Transform the dataframe following the following principles: 
@@ -9,6 +10,8 @@ b) ace and double faults: num -> ratio
 c) break points saving: num -> ratio
 d) break points faced: num -> ratio
 """
+
+
 
 def transform(df):
 	# Transform the 1st serve won and 2nd serve won from number to ratio
@@ -68,4 +71,28 @@ def getDataRange(year_begin, year_end):
 		dfs.append(df)
 	return pd.concat(dfs)
 
+# Extract all the matches of a certain player
+# Add 2 additional columns: hasWon, opponent
+def extractPlayerData(df, player, status='both'):
+
+	name_w, name_l = 'winner_name', 'loser_name'
+	cols_w = cols_match + cols_profile_winner + cols_data_winner
+	cols_l = cols_match + cols_profile_loser + cols_data_loser
+
+	df_win, df_lose = df[df[name_w]==player], df[df[name_l]==player]
+	w,l = df_win[cols_w], df_lose[cols_l]
+
+	opp_when_win = df_win.loser_name
+	opp_when_lose = df_lose.winner_name
+	
+	cols_new = cols_match + cols_profile + cols_data
+	w.columns = cols_new
+	l.columns = cols_new
+	w['hasWon'] = [1]*len(w)
+	l['hasWon'] = [0]*len(l)
+	w['oppenent'] = opp_when_win
+	l['oppenent'] = opp_when_lose
+	
+	status_d = dict({'both': pd.concat([w,l],axis=0), 'win':w, 'lose':l})
+	return status_d[status]
 

@@ -3,16 +3,14 @@ import functions as f
 import numpy as np
 import pylab as pb
 import matplotlib.pyplot as plt
+from tennis import *
 
 start_year = 2001
 end_year = 2016
 
-# plt.close('all')
-# exit()
-
 df = f.getDataRange(start_year, end_year)
 
-players = ['Roger Federer', 'Rafael Nadal', 'Novak Djokovic', 'Andy Murray']
+exit()
 
 def aceRatio(*args):
 	# w,l: the pieces of dataframe that he won or lost
