@@ -10,7 +10,10 @@ end_year = 2016
 
 df = f.getDataRange(start_year, end_year)
 
-exit()
+
+def playerProfile(player):
+	pass
+
 
 def aceRatio(*args):
 	# w,l: the pieces of dataframe that he won or lost
@@ -32,6 +35,8 @@ def aceRatio(*args):
 # print aceRatio('Rafael Nadal', 'Roger Federer', df)
 # print aceRatio('Novak Djokovic', df)
 
+players = ['Roger Federer', 'Novak Djokovic','Rafael Nadal']
+
 import itertools
 l = len(players)
 res = np.zeros((l,l))
@@ -50,6 +55,7 @@ plt.pcolor(res,cmap=plt.cm.Blues, label=res)
 plt.xticks(range(l), players, rotation=45, horizontalalignment='right')
 plt.yticks(range(l), players, rotation=45, horizontalalignment='right')
 plt.show()
+
 
 
 

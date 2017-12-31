@@ -11,6 +11,9 @@ c) break points saving: num -> ratio
 d) break points faced: num -> ratio
 """
 
+def removeDavisCup(df):
+	# df = df[df['tourney_name'].values[:5] != 'Davis']
+	df = df[~df['tourney_name'].astype(str).str.startswith('Davis')]
 
 
 def transform(df):
@@ -58,9 +61,9 @@ def preprocessing(df):
 	# df.rename(columns={'l_bpFaced\t':'l_bpFaced'}, inplace=True)
 	# df.l_bpFaced = pd.to_numeric(df.l_bpFaced, errors='coerce')
 	df.tourney_date = pd.to_datetime(df.tourney_date,format='%Y%m%d')
-
 	transform(df)
-	dealwithna(df)
+	# removeDavisCup(df)
+	# dealwithna(df)
 
 # concatenate the dataframes
 def getDataRange(year_begin, year_end):

@@ -4,13 +4,31 @@ import numpy as np
 import pylab as pb
 import matplotlib.pyplot as plt
 
-start_year = 2001
+start_year = 1991
 end_year = 2016
 
 df = f.getDataRange(start_year, end_year)
 
+
+print len(df)
+# print df.head()
+
+print df['surface'].unique()
+tourney_ids = df['tourney_id'].unique()
+
+df2 = df[['tourney_id', 'tourney_name','surface', 'tourney_level']]
+df2 = df2.drop_duplicates()
+df2 = df2[~df2['tourney_name'].astype(str).str.startswith('Davis')]
+df2['year'] = df2['tourney_id'].astype(str).str[:4].astype(int)
+
+res = df2.groupby('year').surface.count()
+
+exit()
+
+
 #discover how many aces each type of surfaces
 surfaces = df.surface.unique()
+
 res = []
 
 item = '2ndWon'

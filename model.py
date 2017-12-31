@@ -4,6 +4,7 @@ import pandas as pd
 import functions as f
 import numpy as np
 
+
 def model1(df):
 	winners = pd.DataFrame(df[['w_ace', 'w_df', 'w_svpt', 'w_1stIn', 'w_1stWon', 
 		'w_2ndWon','w_SvGms', 'w_bpSaved', 'w_bpFaced']])
