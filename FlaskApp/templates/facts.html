@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<p>Input the player to query and the year:</p>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  {{ form.name.label }} {{ form.name() }}
+  {{ form.year.label }} {{ form.year() }} <br>
+  {{ form.submit() }}
+</form>
+<hr>
+<div>
+  {% if data%}
+  <ul>
+  {% for d in data.keys() %}
+    <li>{{ data[d] }}</li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+
+</div>
+
+{% endblock %}
