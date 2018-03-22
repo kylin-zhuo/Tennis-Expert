@@ -14,8 +14,8 @@
 <div>
   {% if data%}
   <ul>
-  {% for d in data.keys() %}
-    <li>{{ data[d] }}</li>
+  {% for k in keys %}
+    <li>{{ k + ": " + data[k]|string }}</li>
   {% endfor %}
   </ul>
   {% endif %}

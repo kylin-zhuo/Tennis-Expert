@@ -1,7 +1,64 @@
+<script type="text/javascript" src="http://echarts.baidu.com/dist/echarts.js"></script>
+<!-- 引入jquery.js -->
+<script type="text/javascript" src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<style media="screen">
+table, th, td {
+ border: 1px solid grey;
+ background: #f2f2f2;
+}
+</style>
 {% extends 'layout.html' %}
 
 {% block body %}
 
-H2H
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <h4>Enter two players: </h4>
+  {{ form.name1.label }} {{ form.name1() }}
+  {{ form.name2.label }} {{ form.name2() }}
+  <br>
+  <h4>Enter time range: </h4>
+  {{ form.from_year.label }} {{ form.from_year() }}
+  {{ form.to_year.label }} {{ form.to_year() }}
+  {{ form.submit() }}
+</form>
+
+<hr>
+<div>
+  {% if result %}
+
+  <div class="text-center">
+    <h2 >
+      {{ result['p1']}} {{ result['h2h'][0] }} : {{ result['h2h'][1]}} {{result['p2']}}
+    </h2>
+  </div>
+
+
+<div style="overflow-x:auto;">
+  <table align="center">
+    <tr>
+      <td>Year</td>
+      <td>Tournament</td>
+      <td>Surface</td>
+      <td>Winner</td>
+      <td>Score</td>
+    </tr>
+    {% for match in result['matches'] %}
+    <tr>
+      <td>{{(match['tourney_date']|string)[0:4]}}</td>
+      <td class="c2">{{match['tourney_name']}}</td>
+      <td>{{match['surface']}}</td>
+      <td>{{match['winner_name']}}</td>
+      <td class="c3">{{match['score']}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+
+  {% endif %}
+
+</div>
+
 
 {% endblock %}
