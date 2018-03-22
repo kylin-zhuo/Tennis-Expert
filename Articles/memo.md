@@ -35,7 +35,7 @@ Got some descriptions of well-serve players? The first impressions the have come
 
 If we consider the above mentioned features and do the principle component analysis in order to visualize the players’ abilities onto a 2-D plane, we can obtain the following:
 
-![](../img/pca_players.jpg){width=50%}
+![](../img/pca_players.jpg)
 
 
 *  **Basic Statistics**
