@@ -1,6 +1,7 @@
 <script type="text/javascript" src="http://echarts.baidu.com/dist/echarts.js"></script>
-<!-- 引入jquery.js -->
 <script type="text/javascript" src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
 
 <style type="text/css">   
 #match   
@@ -32,7 +33,7 @@
 
 {% block body %}
 
-<form method="POST">
+<form method="POST", id="rivary_form">
   {{ form.hidden_tag() }}
   <h4>Enter two players: </h4>
   {{ form.name1.label }} {{ form.name1() }}
@@ -47,22 +48,22 @@
 <hr>
 <div>
 
-{% if result %}
+{% if result and chart %}
 
-<div id={{ chartID|safe }} class="chart" style="height: 100px; width: 500px"></div>
-<script>
+<div class="text-center", style="padding-top: 2px; margin-top: 5px">
+  <h2 >
+    {{ result['p1']}} {{ result['h2h'][0] }} : {{ result['h2h'][1]}} {{result['p2']}}
+  </h2>
+</div>
+
+<div id={{ chartID|safe }} class="chart" style="height: 100px; width: 50%; margin-left: auto; margin-right: auto; margin-top: 20px"></div>
+<script type="text/javascript">
   var chart_id = {{ chartID|safe }}
   var series = {{ series|safe }}
   var title = {{ title|safe }}
   var xAxis = {{ xAxis|safe }}
   var yAxis = {{ yAxis|safe }}
   var chart = {{ chart|safe }}
-</script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<!-- <script src="../static/js/main.js"></script> -->
-<script type="text/javascript">
-  $(document).ready(function() {
   $(chart_id).highcharts({
     chart: chart,
     title: title,
@@ -70,27 +71,15 @@
     yAxis: yAxis,
     series: series
   });
-});
 </script>
 
 
-
-<div class="text-center">
-  <h2 >
-    {{ result['p1']}} {{ result['h2h'][0] }} : {{ result['h2h'][1]}} {{result['p2']}}
-  </h2>
-</div>
-
-
-<!-- insert the charts: piecharts or columns -->
-
-
-
-<div style="overflow-x:auto;">
+<div style="overflow-x:auto; padding-top: 2px; margin-top: 250px">
   <table align="center", id="match">
     <tr>
       <th>Year</th>
       <th>Tournament</th>
+      <th>Round</th>
       <th>Surface</th>
       <th>Winner</th>
       <th>Score</th>
@@ -99,6 +88,7 @@
     <tr>
       <td>{{(match['tourney_date']|string)[0:4]}}</td>
       <td class="c2">{{match['tourney_name']}}</td>
+      <td>{{ match['round']}}</td>
       <td>{{match['surface']}}</td>
       <td>{{match['winner_name']}}</td>
       <td class="c3">{{match['score']}}</td>
@@ -107,10 +97,8 @@
   </table>
 </div>
 
-
 {% endif %}
 
 </div>
-
 
 {% endblock %}

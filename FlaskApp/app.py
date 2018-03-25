@@ -20,7 +20,7 @@ class RivaryForm(Form):
     name2 = StringField('Player 2', validators=[Required()])
     from_year = StringField('From', validators=[validators.Length(min=0, max=4)])
     to_year = StringField('To', validators=[validators.Length(min=0, max=4)])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Submit', id="submit_rivary")
 
 def process(name, year):
     return str(name) + ', ' + str(year)
@@ -84,11 +84,16 @@ def head2head():
         result = rivary(name1, name2, from_year, to_year)
 
         ## the following is for testing
-        chart = {"renderTo": 'chartID', "type": 'bar', "height": 450,}
-        series = [
-        {"name": name1, "data": [result['h2h'][0], result['h2h_grass'][0], result['h2h_hard'][0], result['h2h_clay'][0]]}, 
-        {"name": name2, "data": [result['h2h'][1], result['h2h_grass'][1], result['h2h_hard'][1], result['h2h_clay'][1]]}]
-        title = {"text": 'Head-to-head between ' + name1 + ' and ' + name2}
+        chart = {"renderTo": 'chartID', "type": 'bar', "height": 350,}
+        series = [ 
+        {"name": str(name1), "data": [result['h2h'][0], result['h2h_grass'][0], result['h2h_hard'][0], result['h2h_clay'][0]]}, 
+        {"name": str(name2), "data": [result['h2h'][1], result['h2h_grass'][1], result['h2h_hard'][1], result['h2h_clay'][1]]}
+        ]
+        # series = [
+        # {"name": "Federer", "data": [15, 2, 11, 2]},
+        # {"name": "Nadal", "data": [23, 1, 9, 13]}
+        # ]
+        title = {"text": "Surfaces"}
         xAxis = {"categories": ['All', 'Grass', 'Hard', 'Clay']}
         yAxis = {"title": {"text": 'Wins'}}
 
