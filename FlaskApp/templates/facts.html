@@ -7,11 +7,14 @@
 <form method="POST">
   {{ form.hidden_tag() }}
   {{ form.name.label }} {{ form.name() }}
-  {{ form.year.label }} {{ form.year() }} <br>
+  {{ form.year.label }} {{ form.year() }}
+  <br>
+  {{ form.davis_cup.label}} {{ form.davis_cup()}}
+   <br>
   {{ form.submit() }}
 </form>
 <hr>
-<div>
+<!-- <div>
   {% if data%}
   <ul>
   {% for k in keys %}
@@ -20,6 +23,12 @@
   </ul>
   {% endif %}
 
+</div> -->
+
+<div>
+{% if data %}
+{{ data }}
+{% endif %}
 </div>
 
 {% endblock %}
