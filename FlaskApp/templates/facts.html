@@ -25,7 +25,7 @@
 
 </div> -->
 <style type="text/css">
-  
+
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
@@ -91,6 +91,30 @@ body {font-family: Arial;}
     border: 1px solid #ccc;
     border-top: none;
 }
+
+#titles_table, #winloss_table
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  width:80%;
+  border-collapse:collapse;
+  }
+
+#titles_table td, #titles_table th, #winloss_table td, #winloss_table th
+  {
+  font-size:1em;
+  border:1px solid #ddd;
+  padding:3px 7px 2px 7px;
+  }
+
+#titles_table th, #winloss_table th
+  {
+  font-size:1.1em;
+  text-align:left;
+  padding-top:5px;
+  padding-bottom:4px;
+  background-color:#A7C942;
+  color:#ffffff;
+  }
 </style>
 </head>
 <body>
@@ -110,12 +134,159 @@ body {font-family: Arial;}
 
 <div id="winloss" class="tabcontent">
   <h3>Win/Loss</h3>
-  <p>{{winloss}}</p> 
+  <!-- <p>{{winloss}}</p> -->
+  <div class="" style="overflow-x: auto; padding-top: 2px; margin-top: 10px">
+    <table align="center", id="winloss_table">
+      <tr>
+        <th>Match Record</th>
+        <th>Career W/L</th>
+        <th>Career Fedex Index</th>
+        <th>Titles</th>
+      </tr>
+      <tr>
+        <td>Overall</td>
+        <td>{{winloss['all_wins']}} - {{winloss['all_loses']}}</td>
+        <td>{{winloss['all_wins'] / (winloss['all_wins'] + winloss['all_loses'])}}</td>
+        <td>{{overview['all_titles']}}</td>
+      </tr>
+      <tr>
+        <td>Grand Slams</td>
+        <td>{{winloss['all_wins_G']}} -  {{winloss['all_loses_G']}}</td>
+        <td>{{winloss['all_wins_G'] / (winloss['all_wins_G'] + winloss['all_loses_G'])}}</td>
+        <td>{{winloss['titles_G']}}</td>
+      </tr>
+      <tr>
+        <td>ATP 1000 Master</td>
+        <td>{{winloss['all_wins_M']}} - {{winloss['all_loses_M']}}</td>
+        <td>{{winloss['all_wins_M'] / (winloss['all_wins_M'] + winloss['all_loses_M'])}}</td>
+        <td>{{winloss['titles_M']}}</td>
+      </tr>
+      <tr>
+        <td>ATP Tour Final</td>
+        <td>{{winloss['all_wins_F']}} - {{winloss['all_loses_F']}}</td>
+        <td>{{winloss['all_wins_F'] / (winloss['all_wins_F'] + winloss['all_loses_F'])}}</td>
+        <td>{{winloss['titles_F']}}</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="background-color:#ddd"><b>Pressure Points</b></td>
+      </tr>
+      <tr>
+        <td>Tiebreaks</td>
+        <td>{{winloss['tiebreak_wins']}} - {{winloss['tiebreak_loses']}}</td>
+        <td>{{winloss['tiebreak_wins'] / (winloss['tiebreak_wins'] + winloss['tiebreak_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Versus Top 10</td>
+        <td>{{winloss['vs_top10_wins']}} - {{winloss['vs_top10_loses']}}</td>
+        <td>{{winloss['vs_top10_wins'] / (winloss['vs_top10_wins'] + winloss['vs_top10_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Finals</td>
+        <td>{{winloss['finals_wins']}} - {{winloss['finals_loses']}}</td>
+        <td>{{winloss['finals_wins'] / (winloss['finals_wins'] + winloss['finals_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Deciding Set(3rd or 5th Set)</td>
+        <td>{{winloss['deciding_set_wins']}} - {{winloss['deciding_set_loses']}}</td>
+        <td>{{winloss['deciding_set_wins'] / (winloss['deciding_set_wins'] + winloss['deciding_set_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>5th Set Record</td>
+        <td>{{winloss['fifth_set_wins']}} - {{winloss['fifth_set_loses']}}</td>
+        <td>{{winloss['fifth_set_wins'] / (winloss['fifth_set_wins'] + winloss['fifth_set_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="background-color:#ddd"><b>Environment</b></td>
+      </tr>
+      <tr>
+        <td>Hard</td>
+        <td>{{winloss['hard_wins']}} - {{winloss['hard_loses']}}</td>
+        <td>{{winloss['hard_wins'] / (winloss['hard_wins'] + winloss['hard_loses'])}}</td>
+        <td>{{winloss['titles_hard']}}</td>
+      </tr>
+      <tr>
+        <td>Grass</td>
+        <td>{{winloss['grass_wins']}} - {{winloss['grass_loses']}}</td>
+        <td>{{winloss['grass_wins'] / (winloss['grass_wins'] + winloss['grass_loses'])}}</td>
+        <td>{{winloss['titles_grass']}}</td>
+      </tr>
+      <tr>
+        <td>Clay</td>
+        <td>{{winloss['clay_wins']}} - {{winloss['clay_loses']}}</td>
+        <td>{{winloss['clay_wins'] / (winloss['clay_wins'] + winloss['clay_loses'])}}</td>
+        <td>{{winloss['titles_clay']}}</td>
+      </tr>
+      <tr>
+        <td>Carpet</td>
+        <td>{{winloss['carpet_wins']}} - {{winloss['carpet_loses']}}</td>
+        <td>{{winloss['carpet_wins'] / (winloss['carpet_wins'] + winloss['carpet_loses'])}}</td>
+        <td>{{winloss['titles_carpet']}}</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="background-color:#ddd"><b>Other</b></td>
+      </tr>
+      <tr>
+        <td>After Winning 1st Set</td>
+        <td>{{winloss['won_1st_set_wins']}} - {{winloss['won_1st_set_loses']}}</td>
+        <td>{{winloss['won_1st_set_wins'] / (winloss['won_1st_set_wins'] + winloss['won_1st_set_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>After Losing 1st Set</td>
+        <td>{{winloss['lost_1st_set_wins']}} - {{winloss['lost_1st_set_loses']}}</td>
+        <td>{{winloss['lost_1st_set_wins'] / (winloss['lost_1st_set_wins'] + winloss['lost_1st_set_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>vs. Right Handers</td>
+        <td>{{winloss['vs_right_hand_wins']}} - {{winloss['vs_right_hand_loses']}}</td>
+        <td>{{winloss['vs_right_hand_wins'] / (winloss['vs_right_hand_wins'] + winloss['vs_right_hand_loses'])}}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>vs. Left Handers</td>
+        <td>{{winloss['vs_left_hand_wins']}} - {{winloss['vs_left_hand_loses']}}</td>
+        <td>{{winloss['vs_left_hand_wins'] / (winloss['vs_left_hand_wins'] + winloss['vs_left_hand_loses'])}}</td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+
 </div>
 
 <div id="titles" class="tabcontent">
-  <h3>Titles</h3>
-  <p>Titles</p>
+  <h3 class="text-center">Career {{winloss['finals_wins']}} titles of {{name}}: </h3>
+  <!-- <p>{{titles}}</p> -->
+  <div style="overflow-x:auto; padding-top: 2px; margin-top: 10px">
+    <table align="center", id="titles_table">
+      <tr>
+        <th>Year</th>
+        <th>Titles</th>
+        <th>Tournaments</th>
+        <th>Opponent</th>
+      </tr>
+      {% for ts in titles['titles'] %}
+        <tr>
+          <td rowspan="{{ts[1]}}">{{ts[0]}}</td>
+          <td rowspan="{{ts[1]}}">{{ts[1]}}</td>
+          <td>{{ts[2][0]}}</td>
+          <td>{{ts[3][0]}}</td>
+        </tr>
+        {% for i in range(1, ts[1])%}
+        <tr>
+          <td>{{ts[2][i]}}</td>
+          <td>{{ts[3][i]}}</td>
+        </tr>
+        {% endfor %}
+      {% endfor %}
+    </table>
+  </div>
 </div>
 
 <div id="stats" class="tabcontent">

@@ -43,6 +43,7 @@ def facts():
     davis_cup = False
     overview = None
     winloss = None
+    titles = None
     nameForm = NameForm()
 
     if nameForm.validate_on_submit():
@@ -53,7 +54,7 @@ def facts():
         nameForm.year.data = ''
         flash('Player: ' + str(name))
         flash('Year: ' + str(year))
-        keys, data, overview, winloss = player_info(name, year, davis_cup)
+        keys, data, overview, winloss, titles = player_info(name, year, davis_cup)
 
     return render_template('facts.html',
     name=name,
@@ -62,7 +63,8 @@ def facts():
     keys=keys,
     data=data,
     overview=overview,
-    winloss=winloss)
+    winloss=winloss,
+    titles=titles)
 
 @app.route('/head2head', methods=['GET', 'POST'])
 def head2head():
@@ -90,7 +92,7 @@ def head2head():
         ## the following is for testing
         chart = {"renderTo": 'chartID', "type": 'bar', "height": 350,}
         series = [
-        {"name": str(name1), "data": [result['h2h'][0], result['h2h_grass'][0], result['h2h_hard'][0], result['h2h_clay'][0]]}, 
+        {"name": str(name1), "data": [result['h2h'][0], result['h2h_grass'][0], result['h2h_hard'][0], result['h2h_clay'][0]]},
         {"name": str(name2), "data": [result['h2h'][1], result['h2h_grass'][1], result['h2h_hard'][1], result['h2h_clay'][1]]}
         ]
         # series = [
@@ -101,7 +103,7 @@ def head2head():
         xAxis = {"categories": ['All', 'Grass', 'Hard', 'Clay']}
         yAxis = {"title": {"text": 'Wins'}}
 
-    return render_template('head2head.html', result=result, form=rivaryForm, 
+    return render_template('head2head.html', result=result, form=rivaryForm,
          chartID='chartID', chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 
 if __name__ == '__main__':
