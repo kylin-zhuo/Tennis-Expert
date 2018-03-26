@@ -4,8 +4,10 @@ An application to query statistics of tennis players rivalries and hidden tennis
 ![](img/banner.jpg)
 -
 ![](img/winloss.jpg)
+
 To run the app: `python FlaskApp/app.py`
--
+
+Â-
 Articles:
 -
 - [Basic Analysis of tennis data](Articles/memo.md)
