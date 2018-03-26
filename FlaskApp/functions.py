@@ -18,7 +18,15 @@ def player_info(player, year, with_davis_cup = True):
         from_year = MIN_YEAR
         to_year = MAX_YEAR
 
-    res = dict()
+    res = {}
+    overview = {}
+    winloss = {}
+
+    all_wins, all_loses = 0, 0
+    all_wins_G, all_loses_G = 0, 0
+    all_wins_M, all_loses_M = 0, 0
+    all_titles = 0
+    tiebreak_wins, tiebreak_loses = 0, 0
 
     for year in range(from_year, to_year+1):
 
@@ -27,35 +35,54 @@ def player_info(player, year, with_davis_cup = True):
             df = df[df.tourney_name.str.contains("Davis") == False]
 
         # assert(len(df['tourney_id'].unique()) == len(df['tourney_name'].unique()))
+        # all_titles += len(df[((df['round'] == 'F') & (df['winner_name'] == player))])
 
         winning_slice = df[df["winner_name"] == player]
         losing_slice = df[df["loser_name"] == player]
 
+        all_titles += len(winning_slice[winning_slice['round'] == 'F'])
+        all_wins_G += len(winning_slice[winning_slice['tourney_level'] == 'G'])
+        all_wins_M += len(winning_slice[winning_slice['tourney_level'] == 'M'])
+
+        all_loses_G += len(losing_slice[losing_slice['tourney_level'] == 'G'])
+        all_loses_M += len(losing_slice[losing_slice['tourney_level'] == 'M'])
+
         n_winning, n_losing = len(winning_slice), len(losing_slice)
+        all_wins += n_winning
+        all_loses += n_losing
 
-        if n_winning and n_losing:
+        if n_winning or n_losing:
 
-            ace_rate_winning = np.sum(winning_slice.w_ace) / np.sum(winning_slice['w_svpt'])
-            ace_rate_losing = np.sum(losing_slice.l_ace) / np.sum(losing_slice['l_svpt'])
-            ace_rate_overall = (np.sum(winning_slice.w_ace) + np.sum(losing_slice.l_ace)) / \
-             (np.sum(winning_slice['w_svpt']) + np.sum(losing_slice['l_svpt']))
+            # ace_rate_winning = np.sum(winning_slice.w_ace) / np.sum(winning_slice['w_svpt'])
+            # ace_rate_losing = np.sum(losing_slice.l_ace) / np.sum(losing_slice['l_svpt'])
+            # ace_rate_overall = (np.sum(winning_slice.w_ace) + np.sum(losing_slice.l_ace)) / \
+            #  (np.sum(winning_slice['w_svpt']) + np.sum(losing_slice['l_svpt']))
 
             data = {
             'player': player,
             'year': year,
             'n_winning': n_winning,
             'n_losing': n_losing,
-            'ace_rate_winning': ace_rate_winning,
-            'ace_rate_losing': ace_rate_losing,
-            'ace_rate_overall': ace_rate_overall
+            # 'ace_rate_winning': ace_rate_winning,
+            # 'ace_rate_losing': ace_rate_losing,
+            # 'ace_rate_overall': ace_rate_overall
             }
 
             res[year] = data
 
     keys = ['player', 'year', 'n_winning', 'n_losing',
     'ace_rate_winning', 'ace_rate_losing', 'ace_rate_overall']
+    overview['all_wins'] = all_wins
+    overview['all_loses'] = all_loses
+    overview['all_titles'] = all_titles
+    winloss['all_wins'] = all_wins
+    winloss['all_loses']= all_loses
+    winloss['all_wins_G'] = all_loses_G
+    winloss['all_loses_G'] = all_loses_G
+    winloss['all_wins_M'] = all_wins_M
+    winloss['all_loses_M'] = all_loses_M
 
-    return keys, res
+    return keys, res, overview, winloss
 
 
 # Extract the rivary data of two players

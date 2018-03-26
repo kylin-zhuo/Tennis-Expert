@@ -41,6 +41,8 @@ def facts():
     data = None
     keys = None
     davis_cup = False
+    overview = None
+    winloss = None
     nameForm = NameForm()
 
     if nameForm.validate_on_submit():
@@ -51,14 +53,16 @@ def facts():
         nameForm.year.data = ''
         flash('Player: ' + str(name))
         flash('Year: ' + str(year))
-        keys, data = player_info(name, year, davis_cup)
+        keys, data, overview, winloss = player_info(name, year, davis_cup)
 
     return render_template('facts.html',
     name=name,
     year=year,
     form=nameForm,
     keys=keys,
-    data=data)
+    data=data,
+    overview=overview,
+    winloss=winloss)
 
 @app.route('/head2head', methods=['GET', 'POST'])
 def head2head():
@@ -85,7 +89,7 @@ def head2head():
 
         ## the following is for testing
         chart = {"renderTo": 'chartID', "type": 'bar', "height": 350,}
-        series = [ 
+        series = [
         {"name": str(name1), "data": [result['h2h'][0], result['h2h_grass'][0], result['h2h_hard'][0], result['h2h_clay'][0]]}, 
         {"name": str(name2), "data": [result['h2h'][1], result['h2h_grass'][1], result['h2h_hard'][1], result['h2h_clay'][1]]}
         ]
