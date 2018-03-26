@@ -27,6 +27,7 @@ def player_info(player, year, with_davis_cup = True):
     all_wins_M, all_loses_M = 0, 0
     all_titles = 0
     tiebreak_wins, tiebreak_loses = 0, 0
+    vs_top10_wins, vs_top10_loses = 0, 0
 
     for year in range(from_year, to_year+1):
 
@@ -39,6 +40,11 @@ def player_info(player, year, with_davis_cup = True):
 
         winning_slice = df[df["winner_name"] == player]
         losing_slice = df[df["loser_name"] == player]
+
+        tiebreak_wins += sum(map(lambda s: sum(map(lambda x:'7-6' in x, s.split())), winning_slice.score))
+        tiebreak_wins += sum(map(lambda s: sum(map(lambda x:'6-7' in x, s.split())), losing_slice.score))
+        tiebreak_loses += sum(map(lambda s: sum(map(lambda x:'6-7' in x, s.split())), winning_slice.score))
+        tiebreak_loses += sum(map(lambda s: sum(map(lambda x:'7-6' in x, s.split())), losing_slice.score))
 
         all_titles += len(winning_slice[winning_slice['round'] == 'F'])
         all_wins_G += len(winning_slice[winning_slice['tourney_level'] == 'G'])
@@ -81,6 +87,8 @@ def player_info(player, year, with_davis_cup = True):
     winloss['all_loses_G'] = all_loses_G
     winloss['all_wins_M'] = all_wins_M
     winloss['all_loses_M'] = all_loses_M
+    winloss['tiebreak_wins'] = tiebreak_wins
+    winloss['tiebreak_loses'] = tiebreak_loses
 
     return keys, res, overview, winloss
 
