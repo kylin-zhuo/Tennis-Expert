@@ -7,7 +7,6 @@ An application to query statistics of tennis players rivalries and hidden tennis
 
 To run the app: `python FlaskApp/app.py`
 
--
 Articles:
 -
 - [Basic Analysis of tennis data](Articles/memo.md)
